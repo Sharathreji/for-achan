@@ -19,9 +19,37 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: 100vh;
   overflow-x: hidden;
+  padding-top: 80px;
+}
+
+.myg-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+  z-index: 999;
+  animation: fadeInDown 1s ease forwards;
+}
+
+.myg-header .logo {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--primary-orange);
+  font-family: 'Poppins', sans-serif;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .confetti {
@@ -108,6 +136,31 @@ button:hover:after {
   animation: fadeIn 1s ease forwards;
 }
 
+.visit-store {
+  margin-top: 2.5rem;
+  background: linear-gradient(90deg, #FF7A00, #FF4B00);
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  display: inline-block;
+  animation: pulse 2s infinite;
+  transition: all 0.3s ease;
+}
+
+.visit-store:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 20px rgba(255, 75, 0, 0.4);
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 75, 0, 0.7); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 75, 0, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 75, 0, 0); }
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.8); }
   to { opacity: 1; transform: scale(1); }
@@ -178,12 +231,16 @@ button:hover:after {
   </style>
 </head>
 <body>
-  <canvas class="confetti"></canvas>
+  <header class="myg-header">
+    <div class="logo">my<span style="color: var(--primary-orange);">G</span></div>
+  </header><canvas class="confetti"></canvas>
+
   <div class="card">
     <h1>🎉 Happy Birthday, Sahad Manakal! 🎉</h1>
     <p>We’re thrilled to celebrate *you* today. Here's something special to make your day brighter.</p>
     <button onclick="revealGift()">🎁 Your Birthday Gift</button>
     <div class="coupon" id="coupon">Coupon Code: <span style="color:var(--primary-orange);">MYG202511</span> – Get <strong>10% OFF</strong>!</div>
+    <a href="https://www.myg.in/?utm_source=google_UPILA&utm_medium=pmax&utm_campaign=online+brand&utm_content=Brand+campaign+online&gad_source=1&gad_campaignid=22676197321&gbraid=0AAAAAC_Jibtc25ovbew5iALjxYGVvRef9&gclid=Cj0KCQiAq7HIBhDoARIsAOATDxDrcxM8xbHJEfMrHgbM4aiNYyW76dxYZOHC6eDVj_CjE1NgRfr2meAaAhG7EALw_wcB" target="_blank" class="visit-store">🛍️ Visit Our Store</a>
   </div>  <div class="letter-section" id="letter">
     <h2>A Special Letter from the myG Family 💌</h2>
     <p>Dear <strong>Sahad Manakal</strong>,</p>
@@ -195,7 +252,6 @@ button:hover:after {
   </div><audio id="celebrateSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_1a85f0a79a.mp3?filename=success-1-6297.mp3" preload="auto"></audio>
 
   <script>
-    // Confetti animation setup
     const canvas = document.querySelector('.confetti');
     const ctx = canvas.getContext('2d');
     let confettis = [];
@@ -247,7 +303,6 @@ button:hover:after {
     createConfetti();
     drawConfetti();
 
-    // Reveal coupon gift
     function revealGift() {
       const coupon = document.getElementById('coupon');
       const audio = document.getElementById('celebrateSound');
@@ -259,7 +314,6 @@ button:hover:after {
       }, 800);
     }
 
-    // Seal open animation
     function openSeal() {
       const seal = document.querySelector('.seal');
       seal.style.transform = 'translateX(50%) scale(0)';

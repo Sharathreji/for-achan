@@ -2,67 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Load Calculator for Achan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wood Mill Calculator</title>
   <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f9;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
+      background: linear-gradient(to right, #e0f2f1, #f1f8e9);
     }
-    .calculator {
-      background: white;
-      padding: 25px 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.15);
-      width: 350px;
+
+    .container {
+      background: #ffffff;
+      width: 95%;
+      max-width: 420px;
+      padding: 25px 22px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
       text-align: center;
     }
-    h2 {
-      margin-bottom: 10px;
+
+    h1 {
+      font-size: 1.6rem;
+      color: #2e7d32;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      font-weight: 600;
+      margin-top: 12px;
+      margin-bottom: 5px;
       color: #333;
     }
-    p {
-      font-size: 14px;
-      color: #666;
-    }
+
     input {
       width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      font-size: 16px;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 8px;
       border: 1px solid #ccc;
-      border-radius: 6px;
+      outline: none;
+      transition: border-color 0.2s;
     }
-    .result {
-      margin-top: 15px;
-      font-size: 20px;
+
+    input:focus {
+      border-color: #4caf50;
+    }
+
+    .result-box {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e8f5e9;
+      border-radius: 10px;
+      font-size: 1.2rem;
       font-weight: bold;
-      color: #0b6e4f;
+      color: #1b5e20;
     }
-    .note {
-      font-size: 13px;
+
+    .formula {
       margin-top: 10px;
-      color: #555;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    @media (max-width: 360px) {
+      h1 {
+        font-size: 1.4rem;
+      }
     }
   </style>
 </head>
 <body>
 
-<div class="calculator">
-  <h2>Load Calculator for Achan</h2>
-  <p>Based on 4 ft × 4 ft (2304 in²) Reference Base</p>
+<div class="container">
+  <h1>Wood Mill Calculator</h1>
+  <div class="subtitle">Based on 4 ft × 4 ft (2304 in²) Reference Base</div>
 
-  <input type="number" id="width" placeholder="Enter width (inches)" oninput="calculate()">
-  <input type="number" id="height" placeholder="Enter height (inches)" oninput="calculate()">
-  <input type="number" id="length" placeholder="Enter length (feet)" oninput="calculate()">
+  <label>Width (inches)</label>
+  <input type="number" id="width" placeholder="e.g. 38" oninput="calculate()">
 
-  <div class="result" id="result">Result: 0</div>
+  <label>Height (inches)</label>
+  <input type="number" id="height" placeholder="e.g. 38" oninput="calculate()">
 
-  <div class="note">
+  <label>Length (feet)</label>
+  <input type="number" id="length" placeholder="e.g. 4" oninput="calculate()">
+
+  <div class="result-box" id="result">
+    Result: 0.00
+  </div>
+
+  <div class="formula">
     Formula: (Width × Height × Length) ÷ 2304
   </div>
 </div>

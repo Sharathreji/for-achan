@@ -1,326 +1,83 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>myG Birthday Celebration</title>
+  <meta charset="UTF-8">
+  <title>Load Calculator for Achan</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Dancing+Script:wght@600&display=swap');:root {
-  --primary-orange: #FF4B00;
-  --accent-gold: #FFD700;
-  --bg-light: #FFF9F5;
-  --text-dark: #2D2D2D;
-}
-
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(180deg, #FFF2E8, #FFF9F5);
-  color: var(--text-dark);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 100vh;
-  overflow-x: hidden;
-  padding-top: 80px;
-}
-
-.myg-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem 0;
-  z-index: 999;
-  animation: fadeInDown 1s ease forwards;
-}
-
-.myg-header .logo {
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--primary-orange);
-  font-family: 'Poppins', sans-serif;
-}
-
-@keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.confetti {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.card {
-  background: #fff;
-  box-shadow: 0 10px 40px rgba(255, 75, 0, 0.15);
-  border-radius: 1.5rem;
-  text-align: center;
-  padding: 2.5rem 2rem;
-  position: relative;
-  z-index: 10;
-  max-width: 480px;
-  width: 90%;
-  animation: float 4s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-h1 {
-  font-size: 2.4rem;
-  color: var(--primary-orange);
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-p {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-  color: var(--text-dark);
-}
-
-button {
-  background: linear-gradient(90deg, #FF4B00, #FF7A00);
-  border: none;
-  border-radius: 2rem;
-  color: #fff;
-  padding: 1rem 2.2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 20px rgba(255, 75, 0, 0.4);
-}
-
-button:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: rgba(255,255,255,0.3);
-  transition: left 0.5s;
-}
-
-button:hover:after {
-  left: 100%;
-}
-
-.coupon {
-  display: none;
-  margin-top: 2rem;
-  font-size: 1.4rem;
-  color: var(--accent-gold);
-  font-weight: 700;
-  animation: fadeIn 1s ease forwards;
-}
-
-.visit-store {
-  margin-top: 2.5rem;
-  background: linear-gradient(90deg, #FF7A00, #FF4B00);
-  color: #fff;
-  padding: 1rem 2rem;
-  border-radius: 2rem;
-  font-weight: 600;
-  font-size: 1rem;
-  text-decoration: none;
-  display: inline-block;
-  animation: pulse 2s infinite;
-  transition: all 0.3s ease;
-}
-
-.visit-store:hover {
-  transform: scale(1.1);
-  box-shadow: 0 4px 20px rgba(255, 75, 0, 0.4);
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 75, 0, 0.7); }
-  70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 75, 0, 0); }
-  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 75, 0, 0); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.8); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.letter-section {
-  background: #fff7f0;
-  box-shadow: 0 10px 40px rgba(255, 75, 0, 0.15);
-  border-radius: 1rem;
-  padding: 3rem 2rem;
-  max-width: 700px;
-  margin-top: 3rem;
-  font-family: 'Dancing Script', cursive;
-  line-height: 1.8;
-  color: #3b3b3b;
-  border: 2px solid rgba(255, 75, 0, 0.2);
-  position: relative;
-  z-index: 5;
-}
-
-.letter-section h2 {
-  font-family: 'Poppins', sans-serif;
-  color: var(--primary-orange);
-  text-align: center;
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-}
-
-.signature {
-  text-align: right;
-  margin-top: 2rem;
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.5rem;
-  color: var(--primary-orange);
-  opacity: 0;
-  animation: signature 2s ease forwards 2s;
-}
-
-@keyframes signature {
-  from { opacity: 0; transform: translateX(30px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-.seal {
-  width: 100px;
-  height: 100px;
-  background: radial-gradient(circle at 30% 30%, #FF7A00, #FF4B00);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-weight: bold;
-  font-size: 1.2rem;
-  position: absolute;
-  bottom: -50px;
-  right: 50%;
-  transform: translateX(50%);
-  box-shadow: 0 4px 15px rgba(255, 75, 0, 0.3);
-  cursor: pointer;
-  transition: transform 0.4s ease;
-}
-
-.seal:hover {
-  transform: translateX(50%) scale(1.1);
-}
-
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .calculator {
+      background: white;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.15);
+      width: 350px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+    p {
+      font-size: 14px;
+      color: #666;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .result {
+      margin-top: 15px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #0b6e4f;
+    }
+    .note {
+      font-size: 13px;
+      margin-top: 10px;
+      color: #555;
+    }
   </style>
 </head>
 <body>
-  <header class="myg-header">
-    <div class="logo">my<span style="color: var(--primary-orange);">G</span></div>
-  </header><canvas class="confetti"></canvas>
 
-  <div class="card">
-    <h1>🎉 Happy Birthday, MUHAMMAD BILAL! 🎉</h1>
-    <p>We’re thrilled to celebrate *you* today. Here's something special to make your day brighter.</p>
-    <button onclick="revealGift()">🎁 Your Birthday Gift</button>
-    <div class="coupon" id="coupon">Coupon Code: <span style="color:var(--primary-orange);">MYG202511</span> – Get <strong>10% OFF</strong>!</div>
-    <a href="https://www.myg.in/?utm_source=google_UPILA&utm_medium=pmax&utm_campaign=online+brand&utm_content=Brand+campaign+online&gad_source=1&gad_campaignid=22676197321&gbraid=0AAAAAC_Jibtc25ovbew5iALjxYGVvRef9&gclid=Cj0KCQiAq7HIBhDoARIsAOATDxDrcxM8xbHJEfMrHgbM4aiNYyW76dxYZOHC6eDVj_CjE1NgRfr2meAaAhG7EALw_wcB" target="_blank" class="visit-store">🛍️ Visit Our Store</a>
-  </div>  <div class="letter-section" id="letter">
-    <h2>A Special Letter from the myG Family 💌</h2>
-    <p>Dear <strong>MUHAMMAD BILAL</strong>,</p>
-    <p>Today, as we celebrate your birthday, every one of us at <strong>myG</strong> wants to thank you from the heart. You’ve been more than a customer — you’ve been a friend, a believer, and a true part of our family. Every interaction, every moment shared with you adds life to our mission and warmth to our brand.</p>
-    <p>Your trust and loyalty have inspired us to innovate, to serve better, and to create experiences that reflect our gratitude. You remind us daily why we do what we do — because people like you make it all worthwhile. You’re an integral part of myG’s journey, and your story fuels ours.</p>
-    <p>As we wish you another year of happiness, success, and love, remember — you’ll always have a place in the myG family. May your birthday shine as bright as your spirit, and may the year ahead bring countless smiles, opportunities, and memories worth cherishing.</p>
-    <div class="signature">With love and gratitude,<br>— Team myG  🧡</div>
-    <div class="seal" onclick="openSeal()">myG</div>
-  </div><audio id="celebrateSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_1a85f0a79a.mp3?filename=success-1-6297.mp3" preload="auto"></audio>
+<div class="calculator">
+  <h2>Load Calculator for Achan</h2>
+  <p>Based on 4 ft × 4 ft (2304 in²) Reference Base</p>
 
-  <script>
-    const canvas = document.querySelector('.confetti');
-    const ctx = canvas.getContext('2d');
-    let confettis = [];
-    const colors = ['#FF4B00', '#FFD700', '#FF7A00', '#FFFFFF'];
+  <input type="number" id="width" placeholder="Enter width (inches)" oninput="calculate()">
+  <input type="number" id="height" placeholder="Enter height (inches)" oninput="calculate()">
+  <input type="number" id="length" placeholder="Enter length (feet)" oninput="calculate()">
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
+  <div class="result" id="result">Result: 0</div>
 
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+  <div class="note">
+    Formula: (Width × Height × Length) ÷ 2304
+  </div>
+</div>
 
-    function createConfetti() {
-      for (let i = 0; i < 100; i++) {
-        confettis.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height - canvas.height,
-          r: Math.random() * 6 + 4,
-          d: Math.random() * 10 + 10,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          tilt: Math.random() * 10 - 10
-        });
-      }
-    }
+<script>
+function calculate() {
+  let width = parseFloat(document.getElementById("width").value) || 0;
+  let height = parseFloat(document.getElementById("height").value) || 0;
+  let length = parseFloat(document.getElementById("length").value) || 0;
 
-    function drawConfetti() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      confettis.forEach(conf => {
-        ctx.beginPath();
-        ctx.fillStyle = conf.color;
-        ctx.ellipse(conf.x, conf.y, conf.r, conf.r / 2, Math.PI / 4, 0, 2 * Math.PI);
-        ctx.fill();
-      });
-      updateConfetti();
-      requestAnimationFrame(drawConfetti);
-    }
+  let answer = (width * height * length) / 2304;
 
-    function updateConfetti() {
-      confettis.forEach(conf => {
-        conf.y += conf.d / 10;
-        if (conf.y > canvas.height) {
-          conf.y = -10;
-          conf.x = Math.random() * canvas.width;
-        }
-      });
-    }
+  document.getElementById("result").innerText = "Result: " + answer.toFixed(2);
+}
+</script>
 
-    createConfetti();
-    drawConfetti();
-
-    function revealGift() {
-      const coupon = document.getElementById('coupon');
-      const audio = document.getElementById('celebrateSound');
-      coupon.style.display = 'block';
-      audio.play();
-      navigator.clipboard.writeText('MYG202511');
-      setTimeout(() => {
-        alert('🎊 Coupon Copied: MYG202511');
-      }, 800);
-    }
-
-    function openSeal() {
-      const seal = document.querySelector('.seal');
-      seal.style.transform = 'translateX(50%) scale(0)';
-      seal.style.opacity = '0';
-      setTimeout(() => {
-        document.getElementById('letter').scrollIntoView({ behavior: 'smooth' });
-      }, 400);
-    }
-  </script></body>
+</body>
 </html>

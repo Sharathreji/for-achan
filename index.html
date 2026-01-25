@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>load Calculator For Achan</title>
+<title>Load Calculator For Achan</title>
 <style>
 body {
   font-family: Arial, sans-serif;
@@ -73,7 +73,7 @@ button:hover {
 <body>
 
 <div class="container">
-<h2>load Calculator For Achan</h2>
+<h2>Load Calculator For Achan</h2>
 <p>Formula: (Vannam × Vannam × Length) ÷ 2304</p>
 
 <table id="woodTable">
@@ -111,15 +111,18 @@ function roundOneDecimal(value) {
   }
 }
 
+// Now adds 10 rows per click
 function addRow() {
   const table = document.getElementById("woodTable");
-  const row = table.insertRow(-1);
-  row.innerHTML = `
-    <td><input type="number" oninput="calculate()"></td>
-    <td><input type="number" oninput="calculate()"></td>
-    <td>–</td>
-    <td>0.0</td>
-  `;
+  for(let j = 0; j < 10; j++) {
+    const row = table.insertRow(-1);
+    row.innerHTML = `
+      <td><input type="number" oninput="calculate()"></td>
+      <td><input type="number" oninput="calculate()"></td>
+      <td>–</td>
+      <td>0.0</td>
+    `;
+  }
 }
 
 function calculate() {
@@ -199,8 +202,8 @@ function buildTable(data) {
   return html;
 }
 
-// Initial rows
-for(let i=0;i<10;i++) addRow();
+// Initial 10 rows
+addRow();
 </script>
 
 </body>

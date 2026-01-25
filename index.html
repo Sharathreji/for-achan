@@ -1,127 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>load Calculator for Achan</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(to right, #e0f2f1, #f1f8e9);
-    }
-
-    .container {
-      background: #ffffff;
-      width: 95%;
-      max-width: 420px;
-      padding: 25px 22px;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 1.6rem;
-      color: #2e7d32;
-      margin-bottom: 5px;
-    }
-
-    .subtitle {
-      font-size: 0.9rem;
-      color: #555;
-      margin-bottom: 18px;
-    }
-
-    label {
-      display: block;
-      text-align: left;
-      font-weight: 600;
-      margin-top: 12px;
-      margin-bottom: 5px;
-      color: #333;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px;
-      font-size: 1rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    input:focus {
-      border-color: #4caf50;
-    }
-
-    .result-box {
-      margin-top: 20px;
-      padding: 15px;
-      background: #e8f5e9;
-      border-radius: 10px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #1b5e20;
-    }
-
-    .formula {
-      margin-top: 10px;
-      font-size: 0.85rem;
-      color: #666;
-    }
-
-    @media (max-width: 360px) {
-      h1 {
-        font-size: 1.4rem;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>load Calculator For Achan</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f9;
+  margin: 0;
+  padding: 10px;
+}
+.container {
+  max-width: 1100px;
+  margin: auto;
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+h2 {
+  text-align: center;
+  color: #2e7d32;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+th, td {
+  border: 1px solid #ccc;
+  padding: 6px;
+  text-align: center;
+}
+th {
+  background: #e8f5e9;
+}
+input {
+  width: 90%;
+  padding: 4px;
+  text-align: center;
+}
+button {
+  margin: 8px 5px 0 0;
+  padding: 8px 14px;
+  background: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+button:hover {
+  background: #1b5e20;
+}
+.summary {
+  margin-top: 15px;
+  background: #f1f8e9;
+  padding: 10px;
+  border-radius: 8px;
+}
+.summary div {
+  margin: 5px 0;
+  font-weight: bold;
+}
+@media print {
+  button { display: none; }
+  body { background: white; }
+  .container { box-shadow: none; }
+}
+</style>
 </head>
 <body>
 
 <div class="container">
-  <h1>Load Calculator For Achan</h1>
-  <div class="subtitle">Based on 4 ft × 4 ft (2304 in²) Reference Base</div>
+<h2>load Calculator For Achan</h2>
+<p>Formula: (Vannam × Vannam × Length) ÷ 2304</p>
 
-  <label>Width (inches)</label>
-  <input type="number" id="width" placeholder="e.g. 38" oninput="calculate()">
+<table id="woodTable">
+<tr>
+  <th>Vannam (in)</th>
+  <th>Length (ft)</th>
+  <th>Class</th>
+  <th>Value</th>
+</tr>
+</table>
 
-  <label>Height (inches)</label>
-  <input type="number" id="height" placeholder="e.g. 38" oninput="calculate()">
+<button onclick="addRow()">+ Add Row</button>
+<button onclick="printReport()">🖨 Print Report</button>
 
-  <label>Length (feet)</label>
-  <input type="number" id="length" placeholder="e.g. 4" oninput="calculate()">
-
-  <div class="result-box" id="result">
-    Result: 0.00
-  </div>
-
-  <div class="formula">
-    Formula: (Width × Height × Length) ÷ 2304
-  </div>
+<div class="summary">
+  <div>First Class Total (≥38): <span id="firstTotal">0.00</span></div>
+  <div>Second Class Total (≥28): <span id="secondTotal">0.00</span></div>
+  <div>Third Class Total (≥18): <span id="thirdTotal">0.00</span></div>
+</div>
 </div>
 
 <script>
-function calculate() {
-  let width = parseFloat(document.getElementById("width").value) || 0;
-  let height = parseFloat(document.getElementById("height").value) || 0;
-  let length = parseFloat(document.getElementById("length").value) || 0;
-
-  let answer = (width * height * length) / 2304;
-
-  document.getElementById("result").innerText = "Result: " + answer.toFixed(2);
+function addRow() {
+  const table = document.getElementById("woodTable");
+  const row = table.insertRow(-1);
+  row.innerHTML = `
+    <td><input type="number" oninput="calculate()"></td>
+    <td><input type="number" oninput="calculate()"></td>
+    <td>–</td>
+    <td>0.00</td>
+  `;
 }
+
+function calculate() {
+  let first = 0, second = 0, third = 0;
+  const rows = document.getElementById("woodTable").rows;
+
+  for(let i=1;i<rows.length;i++){
+    let vannam = parseFloat(rows[i].cells[0].children[0].value) || 0;
+    let length = parseFloat(rows[i].cells[1].children[0].value) || 0;
+
+    let value = (vannam * vannam * length) / 2304;
+    rows[i].cells[3].innerText = value.toFixed(2);
+
+    let woodClass = "-";
+    if(vannam >= 38){
+      first += value;
+      woodClass = "First";
+    } else if(vannam >= 28){
+      second += value;
+      woodClass = "Second";
+    } else if(vannam >= 18){
+      third += value;
+      woodClass = "Third";
+    }
+
+    rows[i].cells[2].innerText = woodClass;
+  }
+
+  document.getElementById("firstTotal").innerText = first.toFixed(2);
+  document.getElementById("secondTotal").innerText = second.toFixed(2);
+  document.getElementById("thirdTotal").innerText = third.toFixed(2);
+}
+
+function printReport() {
+  const rows = document.getElementById("woodTable").rows;
+  let first = [], second = [], third = [];
+
+  for(let i=1;i<rows.length;i++){
+    let vannam = rows[i].cells[0].children[0].value;
+    let length = rows[i].cells[1].children[0].value;
+    let woodClass = rows[i].cells[2].innerText;
+    let value = rows[i].cells[3].innerText;
+
+    if(woodClass === "First") first.push([vannam,length,value]);
+    else if(woodClass === "Second") second.push([vannam,length,value]);
+    else if(woodClass === "Third") third.push([vannam,length,value]);
+  }
+
+  let report = `
+  <h2>Wood Mill Report</h2>
+  <h3>First Class</h3>${buildTable(first)}
+  <h3>Total: ${document.getElementById("firstTotal").innerText}</h3>
+
+  <h3>Second Class</h3>${buildTable(second)}
+  <h3>Total: ${document.getElementById("secondTotal").innerText}</h3>
+
+  <h3>Third Class</h3>${buildTable(third)}
+  <h3>Total: ${document.getElementById("thirdTotal").innerText}</h3>
+  `;
+
+  let win = window.open("", "", "width=900,height=650");
+  win.document.write(`<html><head><title>Report</title></head><body>${report}</body></html>`);
+  win.document.close();
+  win.print();
+}
+
+function buildTable(data) {
+  if(data.length === 0) return "<p>No data</p>";
+  let html = "<table border='1' cellspacing='0' cellpadding='5'><tr><th>Vannam</th><th>Length</th><th>Value</th></tr>";
+  data.forEach(row=>{
+    html += `<tr><td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td></tr>`;
+  });
+  html += "</table>";
+  return html;
+}
+
+// Initial rows
+for(let i=0;i<10;i++) addRow();
 </script>
 
 </body>

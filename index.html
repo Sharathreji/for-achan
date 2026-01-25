@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>load Calculator For Achan</title>
+<title>Wood Mill Calculator</title>
 <style>
 body {
   font-family: Arial, sans-serif;
@@ -73,7 +73,7 @@ button:hover {
 <body>
 
 <div class="container">
-<h2>load Calculator For Achan</h2>
+<h2>Wood Mill Multi Entry Calculator</h2>
 <p>Formula: (Vannam × Vannam × Length) ÷ 2304</p>
 
 <table id="woodTable">
@@ -89,13 +89,28 @@ button:hover {
 <button onclick="printReport()">🖨 Print Report</button>
 
 <div class="summary">
-  <div>First Class Total (≥38): <span id="firstTotal">0.00</span></div>
-  <div>Second Class Total (≥28): <span id="secondTotal">0.00</span></div>
-  <div>Third Class Total (≥18): <span id="thirdTotal">0.00</span></div>
+  <div>First Class Total (≥38): <span id="firstTotal">0.0</span></div>
+  <div>Second Class Total (≥28): <span id="secondTotal">0.0</span></div>
+  <div>Third Class Total (≥18): <span id="thirdTotal">0.0</span></div>
 </div>
 </div>
 
 <script>
+// Custom rounding rule:
+// 5.64 → 5.6
+// 5.65 → 5.6
+// 5.66 → 5.7
+function roundOneDecimal(value) {
+  let scaled = value * 100;
+  let secondDecimal = Math.floor(scaled % 10);
+
+  if (secondDecimal >= 6) {
+    return Math.ceil(value * 10) / 10;
+  } else {
+    return Math.floor(value * 10) / 10;
+  }
+}
+
 function addRow() {
   const table = document.getElementById("woodTable");
   const row = table.insertRow(-1);
@@ -103,7 +118,7 @@ function addRow() {
     <td><input type="number" oninput="calculate()"></td>
     <td><input type="number" oninput="calculate()"></td>
     <td>–</td>
-    <td>0.00</td>
+    <td>0.0</td>
   `;
 }
 
@@ -115,8 +130,10 @@ function calculate() {
     let vannam = parseFloat(rows[i].cells[0].children[0].value) || 0;
     let length = parseFloat(rows[i].cells[1].children[0].value) || 0;
 
-    let value = (vannam * vannam * length) / 2304;
-    rows[i].cells[3].innerText = value.toFixed(2);
+    let rawValue = (vannam * vannam * length) / 2304;
+    let value = roundOneDecimal(rawValue);
+
+    rows[i].cells[3].innerText = value.toFixed(1);
 
     let woodClass = "-";
     if(vannam >= 38){
@@ -133,9 +150,9 @@ function calculate() {
     rows[i].cells[2].innerText = woodClass;
   }
 
-  document.getElementById("firstTotal").innerText = first.toFixed(2);
-  document.getElementById("secondTotal").innerText = second.toFixed(2);
-  document.getElementById("thirdTotal").innerText = third.toFixed(2);
+  document.getElementById("firstTotal").innerText = roundOneDecimal(first).toFixed(1);
+  document.getElementById("secondTotal").innerText = roundOneDecimal(second).toFixed(1);
+  document.getElementById("thirdTotal").innerText = roundOneDecimal(third).toFixed(1);
 }
 
 function printReport() {
@@ -155,14 +172,15 @@ function printReport() {
 
   let report = `
   <h2>Wood Mill Report</h2>
+
   <h3>First Class</h3>${buildTable(first)}
-  <h3>Total: ${document.getElementById("firstTotal").innerText}</h3>
+  <h4>Total: ${document.getElementById("firstTotal").innerText}</h4>
 
   <h3>Second Class</h3>${buildTable(second)}
-  <h3>Total: ${document.getElementById("secondTotal").innerText}</h3>
+  <h4>Total: ${document.getElementById("secondTotal").innerText}</h4>
 
   <h3>Third Class</h3>${buildTable(third)}
-  <h3>Total: ${document.getElementById("thirdTotal").innerText}</h3>
+  <h4>Total: ${document.getElementById("thirdTotal").innerText}</h4>
   `;
 
   let win = window.open("", "", "width=900,height=650");
